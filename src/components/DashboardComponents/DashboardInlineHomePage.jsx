@@ -1,9 +1,18 @@
 import React from 'react'
 import { motion } from "framer-motion"
 import upvotePic from "../../assets/upvote-pic.png"
+import { useDataContext } from '../DataContext';
 
 export const DashboardInlineHomePage = () => {
-  return (
+
+    const { votingSessions } = useDataContext();
+    const ongoing = votingSessions.filter(session => session.SessionEnd === false);
+    const ended = votingSessions.filter(session => session.SessionEnd === true);
+
+    console.log(ongoing.length + " ongoing");
+    console.log(ended.length +  " ended");
+
+    return (
     <motion.div className='flex md:flex-col-reverse items-center xl:flex-row lg:flex-row 2xl:flex-row flex-col-reverse justify-center w-[100%] h-[100%]'>
         <div className='flex flex-col 
         2xl:h-[95%] 2xl:w-[25%]
@@ -13,14 +22,17 @@ export const DashboardInlineHomePage = () => {
         h-[95%] w-[75%]
         items-center justify-center
         '>
-            <motion.div animate={{y:10}} transition={{ease: "easeOut", duration: 0.2 }} className='flex rounded-2xl bg-white 2xl:h-[25%] h-[35%] w-[80%] m-5 p-5'>
-                Overall Finished Voting Sessions
+            <motion.div animate={{y:10}} transition={{ease: "easeOut", duration: 0.2 }} className='flex flex-col items-center justify-center rounded-2xl bg-white 2xl:h-[25%] h-[35%] w-[80%] m-5 p-5'>
+                <p>Overall Finished Voting Sessions</p>
+                <p className='text-[2.5rem] text-green-primary font-poppins font-bold'>{ended.length}</p>
             </motion.div>
-            <motion.div animate={{y:10}} transition={{ease: "easeOut", duration: 0.3 }} className='flex rounded-2xl bg-white 2xl:h-[25%] h-[35%] w-[80%] m-5 p-5'>
-                 Overalls Ongoing Voting Sessions
+            <motion.div animate={{y:10}} transition={{ease: "easeOut", duration: 0.3 }} className='flex flex-col items-center justify-center rounded-2xl bg-white 2xl:h-[25%] h-[35%] w-[80%] m-5 p-5'>
+                 <p>Overall Ongoing Voting Sessions</p>
+                 <p className='text-[2.5rem] text-[#ff7373] font-poppins font-bold'>{ongoing.length}</p>
             </motion.div>
-            <motion.div animate={{y:10}} transition={{ease: "easeOut", duration: 0.4 }} className='flex rounded-2xl bg-white 2xl:h-[25%] h-[35%] w-[80%] m-5 p-5'>
-                Current Date
+            <motion.div animate={{y:10}} transition={{ease: "easeOut", duration: 0.4 }} className='flex flex-col items-center justify-center rounded-2xl bg-white 2xl:h-[25%] h-[35%] w-[80%] m-5 p-5'>
+                <p>Current Date</p>
+                <p>{new Date().toLocaleDateString()}</p>
             </motion.div>
         </div>
 
@@ -43,7 +55,7 @@ export const DashboardInlineHomePage = () => {
             </div>
             <div className='flex flex-col items-center w-[100%] h-[100%]'>
                 <h1 className="h-[2rem] text-center text-xl font-bold text-slate-700">Lets<span className="text-[#61FF16]">Vote</span></h1>
-                <p className=' w-[80%] 2xl:text-base xl:text-base md:text-base sm:text-sm text-[0.8rem] p-3 text-center text-[1rem] font-'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum repudiandae ipsam, doloremque itaque provident est maxime quos, fugiat at minima debitis natus impedit aspernatur recusandae repellendus dolorem placeat numquam. Saepe, hic. Distinctio laboriosam, quaerat nihil enim unde inventore id quod iste. Rerum exercitationem qui tenetur quam? Commodi deserunt aperiam ipsa!</p>
+                <p className=' w-[80%] 2xl:text-base xl:text-base md:text-base sm:text-sm text-[0.8rem] p-3 text-center text-[1rem] font-'>Welcome to LetsVote Web Administrator Portal, Where you can create voting sessions, or even delete ongoing sessions. please handle with care and do not abuse the system</p>
             </div>
         
         </motion.div>
