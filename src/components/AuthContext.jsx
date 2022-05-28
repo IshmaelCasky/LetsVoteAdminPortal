@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { getAuth, signInWithEmailAndPassword} from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, setUserCustomClaims} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -51,8 +51,13 @@ export const AuthProvider = ({children}) => {
     useEffect(() => {
         const unsub = auth.onAuthStateChanged(user => {
             if(user){
-                setUser(user);
-                sessionStorage.setItem("Token", user.uid);
+                if(user.email === "letsvoteadmin@yahoo.com"){
+                    console.log(user.email);
+                    setUser(user);
+                    sessionStorage.setItem("Token", user.uid);
+                } else {
+                    setUser(null);
+                }
             } else {
                 setUser(null);
                 sessionStorage.clear();
